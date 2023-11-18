@@ -9,7 +9,8 @@
     },
     "mssql1": {
       "type": "mssql",
-      "connectionId": "ConnectionStrings:trywiz"
+      "connectionId": "ConnectionStrings:GenReqContext",
+      "dynamicId": null
     }
   }
 }
