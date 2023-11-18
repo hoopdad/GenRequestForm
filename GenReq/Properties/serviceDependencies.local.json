@@ -1,0 +1,21 @@
+{
+  "dependencies": {
+    "identityapp1": {
+      "connectionInfo": "App registration: WebApplication1, Tenant: Mike Olivieri (mikeolivieris.onmicrosoft.com - Microsoft Entra ID)",
+      "type": "identityapp.default"
+    },
+    "secrets1": {
+      "secretStore": null,
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.KeyVault/vaults/GenReqvault",
+      "type": "secrets.keyVault",
+      "connectionId": "VaultUri"
+    },
+    "mssql1": {
+      "serviceConnectorResourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.ServiceLinker/locations/eastus/connectors/ConnectionStringstrywiz_87A02F40EC",
+      "secretStore": "AzureKeyVault",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/trwiz-dev/databases/trywiz",
+      "type": "mssql.azure",
+      "connectionId": "ConnectionStrings:trywiz"
+    }
+  }
+}
