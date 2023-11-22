@@ -27,6 +27,7 @@ namespace GenReq.Models
         
         public string Status { get; set; }
 
-        public string? Content { get; set; }
+        public string? GeneratedContent { get; set; }
+        public string? GeneratedTitle { get; set; }
     }
 }
