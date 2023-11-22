@@ -9,25 +9,20 @@ namespace ChatGPTRunner.Data
 {
     public class ApplicationDbContext : DbContext
     {
-        public string DbPath { get; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
         }
-        public ApplicationDbContext()
+        public MyContext MyAppContext { get; set; }
+        public ApplicationDbContext(MyContext cntxt)
         {
-            DbPath = Environment.GetEnvironmentVariable("ConnectionString:GenReqContext");
-
-            if (DbPath == null)
-            {
-                DbPath = "";
-                Console.Error.WriteLine("Environment misconfigured. Need value for ConnectionString:GenReqContext");
-            }
+            MyAppContext = cntxt;
         }
+        
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
-            => options.UseSqlServer(DbPath);
+            => options.UseSqlServer(MyAppContext.DbPath);
 
 
         public DbSet<GenRequest> GenRequest { get; set; }
