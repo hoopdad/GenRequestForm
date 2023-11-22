@@ -35,14 +35,17 @@ namespace GenReq.Migrations
                         .HasMaxLength(1024)
                         .HasColumnType("nvarchar(1024)");
 
-                    b.Property<string>("Content")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("GeneratedContent")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime?>("GeneratedDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("GeneratedTitle")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("OwningUserId")
                         .IsRequired()
