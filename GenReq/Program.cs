@@ -12,6 +12,10 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 var keyVaultEndpoint = new Uri(Environment.GetEnvironmentVariable("VaultUri"));
+if (keyVaultEndpoint == null)
+{
+    Console.Error.WriteLine("VaultUri is not set in the environment.");
+}
 builder.Configuration.AddAzureKeyVault(keyVaultEndpoint, new DefaultAzureCredential());
 
 // Add services to the container.
@@ -28,6 +32,11 @@ builder.Services.AddControllersWithViews(options =>
 builder.Services.AddRazorPages()
     .AddMicrosoftIdentityUI();
 string strconnString = builder.Configuration.GetConnectionString("GenReqContext");
+if (strconnString == null)
+{
+    Console.Error.WriteLine("ConnectionString:GenReqContext is not set in the environment.");
+}
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
    options.UseSqlServer(strconnString));
 
