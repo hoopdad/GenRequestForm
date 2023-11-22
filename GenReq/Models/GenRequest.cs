@@ -4,14 +4,29 @@ namespace GenReq.Models
 {
     public class GenRequest
     {
-        public int id { get; set; }
+        public int Id { get; set; }
+
+        [Display(Name = "Requesting User")]
         public string OwningUserId { get; set; }
-        public string? Title { get; set; }
+
+        [MinLength(5)]
+        [MaxLength(1024)] 
+        public string Title { get; set; }
+
         [DataType(DataType.Date)]
+        [Display(Name = "Requested Date")]
         public DateTime CreatedDate { get; set; }
+
         [DataType(DataType.Date)]
-        public DateTime GeneratedDate { get; set; }
-        public string? Actor { get; set; }
+        [Display(Name = "Generated Date")]
+        public DateTime? GeneratedDate { get; set; }
+
+        [MinLength(5)]
+        [MaxLength(1024)]
+        public string Actor { get; set; }
+        
         public string Status { get; set; }
+
+        public string? Content { get; set; }
     }
 }
