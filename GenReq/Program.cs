@@ -15,6 +15,7 @@ var keyVaultEndpoint = new Uri(Environment.GetEnvironmentVariable("VaultUri"));
 if (keyVaultEndpoint == null)
 {
     Console.Error.WriteLine("VaultUri is not set in the environment.");
+    System.Diagnostics.Trace.TraceError("VaultUri is not set in the environment.");
 }
 builder.Configuration.AddAzureKeyVault(keyVaultEndpoint, new DefaultAzureCredential());
 
@@ -35,6 +36,7 @@ string strconnString = builder.Configuration.GetConnectionString("GenReqContext"
 if (strconnString == null)
 {
     Console.Error.WriteLine("ConnectionString:GenReqContext is not set in the environment.");
+    System.Diagnostics.Trace.TraceError("ConnectionString:GenReqContext is not set in the environment.");
 }
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
