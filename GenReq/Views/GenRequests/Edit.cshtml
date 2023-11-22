@@ -5,6 +5,11 @@
 }
 
 <h1>Edit a Content Generation Request</h1>
+<div class="row">
+    <p>This request is editable until the Generator begins working on it.</p>
+    <p><b>Title</b><br />What is the title or topic of the content you wish to generate? Be as specific as you would like. The GPT will create content based on its understanding of this, in a formatted and clearly-written way.</p>
+    <p><b>Actor</b><br />From whose perspective is the content being written? It will be as if a person of your description is writing this content for you. Be as specific as you would like.</p>
+</div>
 
 <h4>Content Generation Request</h4>
 <hr />
@@ -13,35 +18,20 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="OwningUserId" class="control-label"></label>
-                <input asp-for="OwningUserId" class="form-control" />
-                <span asp-validation-for="OwningUserId" class="text-danger"></span>
-            </div>
+            <input asp-for="OwningUserId" type="hidden" />
+            <input asp-for="CreatedDate" type="hidden" />
+            <input asp-for="GeneratedDate" type="hidden" />
+            <input asp-for="Status" type="hidden" />
+
             <div class="form-group">
                 <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
+                <textarea asp-for="Title" class="form-control"></textarea>
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CreatedDate" class="control-label"></label>
-                <input asp-for="CreatedDate" class="form-control" />
-                <span asp-validation-for="CreatedDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="GeneratedDate" class="control-label"></label>
-                <input asp-for="GeneratedDate" class="form-control" />
-                <span asp-validation-for="GeneratedDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="Actor" class="control-label"></label>
-                <input asp-for="Actor" class="form-control" />
+                <textarea asp-for="Actor" class="form-control"></textarea>
                 <span asp-validation-for="Actor" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Status" class="control-label"></label>
-                <input asp-for="Status" class="form-control" />
-                <span asp-validation-for="Status" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

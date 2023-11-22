@@ -1,44 +1,36 @@
 ﻿@model GenReq.Models.GenRequest
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Content Generation Request";
 }
 
-<h1>Details</h1>
+<h1>Content Generation Request</h1>
 
 <div>
-    <h4>GenRequest</h4>
-    <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.OwningUserId)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Status)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.OwningUserId)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Status)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CreatedDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CreatedDate)
+        </dd>
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Title)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Title)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreatedDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CreatedDate)
-        </dd>
-        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Actor)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Actor)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Status)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.GeneratedDate)
