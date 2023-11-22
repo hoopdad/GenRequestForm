@@ -16,15 +16,15 @@ namespace GenReq.Models
 
         public string Name { get; set; }
 
-        [Display(Name = "Registration Type")]
-        public RegistrationTypes RegistrationType { get; set; } = RegistrationTypes.Unassigned;
+        [Display(Name = "Plan Type")]
+        public RegistrationTypes RegistrationType { get; set; } = RegistrationTypes.FreeTrial5;
 
         [DataType(DataType.Date)]
-        [Display(Name = "Registration Started")]
+        [Display(Name = "Plan Started")]
         public DateTime RegistrationStarted { get; set; } = DateTime.Today;
 
         [DataType(DataType.Date)]
-        [Display(Name = "Registration Ended")]
+        [Display(Name = "Plan Ended")]
         public DateOnly? RegistrationEnded { get; set; }
     }
 }

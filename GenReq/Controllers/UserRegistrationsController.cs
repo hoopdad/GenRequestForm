@@ -35,30 +35,13 @@ namespace GenReq.Controllers
             return View(obj);
         }
 
-        // GET: UserRegistrations/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            string UserID = GetUserID();
-            var userRegistration = await _context.UserRegistration
-                .Where(b => b.Name == UserID)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (userRegistration == null)
-            {
-                return NotFound();
-            }
-
-            return View(userRegistration);
-        }
-
         // GET: UserRegistrations/Create
         public IActionResult Create()
         {
-            return View();
+            UserRegistration userRegistration = new UserRegistration();
+            userRegistration.Name = GetUserID();
+            userRegistration.RegistrationStarted = DateTime.Today;
+            return View(userRegistration);
         }
 
         // POST: UserRegistrations/Create
@@ -77,100 +60,6 @@ namespace GenReq.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(userRegistration);
-        }
-
-        // GET: UserRegistrations/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            string UserID = GetUserID();
-            var userRegistration = await _context.UserRegistration
-                .Where(b => b.Name == UserID)
-                .FirstOrDefaultAsync(m => m.Id == id);
-
-            if (userRegistration == null)
-            {
-                return NotFound();
-            }
-            return View(userRegistration);
-        }
-
-        // POST: UserRegistrations/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,RegistrationType,RegistrationStarted,RegistrationEnded")] UserRegistration userRegistration)
-        {
-            if (id != userRegistration.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(userRegistration);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!UserRegistrationExists(userRegistration.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(userRegistration);
-        }
-
-        // GET: UserRegistrations/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            string UserID = GetUserID();
-            var userRegistration = await _context.UserRegistration
-                .Where(b => b.Name == UserID)
-                .FirstOrDefaultAsync(m => m.Id == id);
-
-            if (userRegistration == null)
-            {
-                return NotFound();
-            }
-
-            return View(userRegistration);
-        }
-
-        // POST: UserRegistrations/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            string UserID = GetUserID();
-            var userRegistration = await _context.UserRegistration
-                .Where(b => b.Name == UserID)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (userRegistration != null)
-            {
-                _context.UserRegistration.Remove(userRegistration);
-            }
-
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
         }
 
         private bool UserRegistrationExists(int id)

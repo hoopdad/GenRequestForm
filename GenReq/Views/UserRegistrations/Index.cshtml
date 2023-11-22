@@ -1,20 +1,18 @@
 ﻿@model IEnumerable<GenReq.Models.UserRegistration>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Content Generation Account Management";
 }
 
-<h1>Index</h1>
+<h1>Account Management</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Add a New Plan</a> If the table below is blank, please click this link so you can get started.
 </p>
+<h4>Registered Plans</h4>
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
             <th>
                 @Html.DisplayNameFor(model => model.RegistrationType)
             </th>
@@ -31,9 +29,6 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.RegistrationType)
             </td>
             <td>
@@ -41,11 +36,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.RegistrationEnded)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
 }
