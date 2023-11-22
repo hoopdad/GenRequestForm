@@ -15,6 +15,7 @@ namespace GenReq.Data
         }
 
         public DbSet<GenRequest> GenRequest { get; set; }
+        public DbSet<UserRegistration> UserRegistration { get; set; }
     }
 
     public class ApplicationDbContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext>

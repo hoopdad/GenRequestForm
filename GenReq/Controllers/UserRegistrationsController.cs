@@ -7,19 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GenReq.Data;
 using GenReq.Models;
-using System.Net;
 
 namespace GenReq.Controllers
 {
-    public class GenRequestsController : Controller
+    public class UserRegistrationsController : Controller
     {
         private readonly ApplicationDbContext _context;
-
-        public GenRequestsController(ApplicationDbContext context)
-        {
-            _context = context;
-        }
-
         private string GetUserID()
         {
             System.Security.Claims.ClaimsPrincipal currentUser = this.User;
@@ -27,18 +20,22 @@ namespace GenReq.Controllers
             return UserID;
         }
 
-        // GET: GenRequests
+        public UserRegistrationsController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
+        // GET: UserRegistrations
         public async Task<IActionResult> Index()
         {
             string UserID = GetUserID();
-            // .Where(b => b.Url.Contains("dotnet"))
-            var obj = await _context.GenRequest
-                .Where(b => b.OwningUserId == UserID)
+            var obj = await _context.UserRegistration
+                .Where(b => b.Name == UserID)
                 .ToListAsync();
             return View(obj);
         }
 
-        // GET: GenRequests/Details/5
+        // GET: UserRegistrations/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -47,48 +44,42 @@ namespace GenReq.Controllers
             }
 
             string UserID = GetUserID();
-            var genRequest = await _context.GenRequest
-                .Where(b => b.OwningUserId == UserID)
+            var userRegistration = await _context.UserRegistration
+                .Where(b => b.Name == UserID)
                 .FirstOrDefaultAsync(m => m.Id == id);
-
-            if (genRequest == null)
+            if (userRegistration == null)
             {
                 return NotFound();
             }
 
-            return View(genRequest);
+            return View(userRegistration);
         }
 
-        // GET: GenRequests/Create
+        // GET: UserRegistrations/Create
         public IActionResult Create()
         {
-            var genRequest = new GenRequest();
-            genRequest.CreatedDate = DateTime.Today;
-            genRequest.Status = "Requested";
-            genRequest.OwningUserId = GetUserID();
-            return View(genRequest);
+            return View();
         }
 
-        // POST: GenRequests/Create
+        // POST: UserRegistrations/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,OwningUserId,Title,CreatedDate,GeneratedDate,Actor,Status")] GenRequest genRequest)
+        public async Task<IActionResult> Create([Bind("Id,Name,RegistrationType,RegistrationStarted,RegistrationEnded")] UserRegistration userRegistration)
         {
             if (ModelState.IsValid)
             {
-                genRequest.CreatedDate = DateTime.Today;
-                genRequest.Status = "Requested";
-                genRequest.OwningUserId = GetUserID();
-                _context.Add(genRequest);
+                userRegistration.Name = GetUserID();
+                userRegistration.RegistrationStarted = DateTime.Today;
+                _context.Add(userRegistration);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(genRequest);
+            return View(userRegistration);
         }
 
-        // GET: GenRequests/Edit/5
+        // GET: UserRegistrations/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -97,24 +88,25 @@ namespace GenReq.Controllers
             }
 
             string UserID = GetUserID();
-            var genRequest = await _context.GenRequest
-                .Where(b => b.OwningUserId == UserID)
-                .FirstOrDefaultAsync(m => m.Id == id); // was FindAsync
-            if (genRequest == null)
+            var userRegistration = await _context.UserRegistration
+                .Where(b => b.Name == UserID)
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (userRegistration == null)
             {
                 return NotFound();
             }
-            return View(genRequest);
+            return View(userRegistration);
         }
 
-        // POST: GenRequests/Edit/5
+        // POST: UserRegistrations/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,OwningUserId,Title,CreatedDate,GeneratedDate,Actor,Status")] GenRequest genRequest)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,RegistrationType,RegistrationStarted,RegistrationEnded")] UserRegistration userRegistration)
         {
-            if (id != genRequest.Id)
+            if (id != userRegistration.Id)
             {
                 return NotFound();
             }
@@ -123,12 +115,12 @@ namespace GenReq.Controllers
             {
                 try
                 {
-                    _context.Update(genRequest);
+                    _context.Update(userRegistration);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!GenRequestExists(genRequest.Id))
+                    if (!UserRegistrationExists(userRegistration.Id))
                     {
                         return NotFound();
                     }
@@ -139,10 +131,10 @@ namespace GenReq.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(genRequest);
+            return View(userRegistration);
         }
 
-        // GET: GenRequests/Delete/5
+        // GET: UserRegistrations/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -151,38 +143,39 @@ namespace GenReq.Controllers
             }
 
             string UserID = GetUserID();
-            var genRequest = await _context.GenRequest
-                .Where(b => b.OwningUserId == UserID)
+            var userRegistration = await _context.UserRegistration
+                .Where(b => b.Name == UserID)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (genRequest == null)
+
+            if (userRegistration == null)
             {
                 return NotFound();
             }
 
-            return View(genRequest);
+            return View(userRegistration);
         }
 
-        // POST: GenRequests/Delete/5
+        // POST: UserRegistrations/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             string UserID = GetUserID();
-            var genRequest = await _context.GenRequest
-                .Where(b => b.OwningUserId == UserID)
+            var userRegistration = await _context.UserRegistration
+                .Where(b => b.Name == UserID)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (genRequest != null)
+            if (userRegistration != null)
             {
-                _context.GenRequest.Remove(genRequest);
+                _context.UserRegistration.Remove(userRegistration);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool GenRequestExists(int id)
+        private bool UserRegistrationExists(int id)
         {
-            return _context.GenRequest.Any(e => e.Id == id);
+            return _context.UserRegistration.Any(e => e.Id == id);
         }
     }
 }
