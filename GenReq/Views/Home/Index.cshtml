@@ -2,7 +2,25 @@
     ViewData["Title"] = "Home Page";
 }
 
-<a href="GenRequests/Index.cshtml">New Views</a><br />
+<a href="GenRequests/">New Views</a><br />
+
+@{
+    System.Security.Claims.ClaimsPrincipal currentUser = this.User;
+    //    You can check the claims directly(without a round trip to the database):
+    bool isAdmin = currentUser.IsInRole("Admin");
+    string id = currentUser.Identity.ToString();
+    Write("auth type=" + this.User.Identity.AuthenticationType);
+    Write("<BR>");
+    Write("ID=");
+    Write(id);
+    Write("<BR>");
+    Write("Name=");
+    Write(currentUser.Identity.Name);
+    Write("<BR>");
+    Write("AuthenticationType=");
+    Write(currentUser.Identity.AuthenticationType);
+    //GetUserId(User); // Get user id:
+}
 
 
 <div class="text-center">

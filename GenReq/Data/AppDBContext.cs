@@ -3,6 +3,7 @@ using GenReq.Models;
 using System;
 using Microsoft.EntityFrameworkCore.Design;
 using System.Configuration;
+using System.Drawing.Printing;
 
 namespace GenReq.Data
 {
@@ -13,15 +14,17 @@ namespace GenReq.Data
         {
         }
 
-        public DbSet<GenRequest> Reminders { get; set; }
+        public DbSet<GenRequest> GenRequest { get; set; }
     }
 
     public class ApplicationDbContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext>
     {
         public ApplicationDbContext CreateDbContext(string[] args)
         {
+            Console.WriteLine("in IDesignTimeDbContextFactory")
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
-            string SQLConnectSTR = "Server=tcp:trwiz-dev.database.windows.net,1433;Initial Catalog=trywiz;Persist Security Info=False;User ID=svc_webuser_dev@mikeolivieris.onmicrosoft.com;Password=Cabbo2007!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Authentication=\"Active Directory Password\";";//Configuration["ConnectionString:GenReqContext"];
+            string SQLConnectSTR = "Data Source=trwiz-dev.database.windows.net;Initial Catalog=trywiz;Authentication=Active Directory Default;Encrypt=True;connect timeout=10000;";
+            SQLConnectSTR = "Server=tcp:trwiz-dev.database.windows.net,1433;Initial Catalog=trywiz;Persist Security Info=False;User ID=svc_webuser_dev@mikeolivieris.onmicrosoft.com;Password=Cabbo2007!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Authentication=\"Active Directory Password\";";//Configuration["ConnectionString:GenReqContext"];
             optionsBuilder.UseSqlServer(SQLConnectSTR);
 
             return new ApplicationDbContext(optionsBuilder.Options);
