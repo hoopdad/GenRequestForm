@@ -1,34 +1,31 @@
 ﻿@model IEnumerable<GenReq.Models.GenRequest>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Your Content Generation Requests";
 }
 
-<h1>Index</h1>
+<h1>Your Content Generation Requests</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Create New Request</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.OwningUserId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.CreatedDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.GeneratedDate)
+                @Html.DisplayNameFor(model => model.Title)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Actor)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GeneratedDate)
             </th>
             <th></th>
         </tr>
@@ -37,16 +34,10 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.OwningUserId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.CreatedDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.GeneratedDate)
+                @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Actor)
@@ -54,8 +45,16 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Status)
             </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <td>
+                    @Html.DisplayFor(modelItem => item.GeneratedDate)
+                </td>
+                <td>
+                    @if (item.Status == "Requested")
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                        Write("|");
+                    }
+                
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>

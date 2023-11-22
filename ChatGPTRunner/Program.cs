@@ -37,6 +37,7 @@ foreach (GenRequest req in requests)
 
     Response<Completions> completionsResponse = client.GetCompletions(completionsOptions);
 
+    req.Status = "Generated";
     req.GeneratedContent = completionsResponse.Value.Choices[0].Text;
     req.GeneratedTitle = completionsResponse.Value.Choices[1].Text;
     req.GeneratedDate = DateTime.Today;
