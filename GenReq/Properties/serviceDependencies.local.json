@@ -17,6 +17,7 @@
     "identityapp1": {
       "connectionInfo": "App registration: Content Generator, Tenant: ContentGeneratorSite (ContentGeneratorSite.onmicrosoft.com - Microsoft Entra External ID)",
       "secretStore": "LocalSecretsFile",
+      "resourceId": null,
       "type": "identityapp.secretStore",
       "connectionId": "AzureAD:ClientSecret"
     }
