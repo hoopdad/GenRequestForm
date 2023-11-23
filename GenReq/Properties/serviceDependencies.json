@@ -1,8 +1,5 @@
 {
   "dependencies": {
-    "identityapp1": {
-      "type": "identityapp"
-    },
     "secrets1": {
       "type": "secrets",
       "connectionId": "VaultUri"
@@ -11,6 +8,10 @@
       "type": "mssql",
       "connectionId": "ConnectionStrings:GenReqContext",
       "dynamicId": null
+    },
+    "identityapp1": {
+      "type": "identityapp",
+      "connectionId": "AzureAD:ClientSecret"
     }
   }
 }

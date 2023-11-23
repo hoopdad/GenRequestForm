@@ -21,6 +21,7 @@ foreach (GenRequest req in requests)
 {
     try
     {
+        Console.WriteLine("Running for " + req.OwningUserId);
         String Prompt = "Generate a blog post in HTML syntax about and titled " + req.Title +
             ", including sections for an overview, key uses and benefits, what to look for, what to watch out for, links with HTML link syntax to popular products, and who are customers of those products. " +
             "Each section should use an HTML H2 section title and lists of links should use HTML UL." +
@@ -43,6 +44,7 @@ foreach (GenRequest req in requests)
         req.GeneratedDate = DateTime.Today;
         db.Update(req);
         await db.SaveChangesAsync();
+        Console.WriteLine("Run complete");
     }
     catch (Exception e)
     {
