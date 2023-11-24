@@ -11,7 +11,7 @@
 </p>
 <div class="row">
 @foreach (var item in Model) {
-        <div class="col-sm-6 border border-dark bg-light">
+        <div class="col-sm-6 border border-dark bg-light p-5">
                 @Html.DisplayNameFor(model => model.CreatedDate):
                 @Html.DisplayFor(modelItem => item.CreatedDate)<br/>
                 @Html.DisplayNameFor(model => model.Title):
@@ -22,13 +22,18 @@
             @Html.DisplayFor(modelItem => item.Status)<br />
                 @Html.DisplayNameFor(model => model.GeneratedDate):
             @Html.DisplayFor(modelItem => item.GeneratedDate)<br />
-                    @if (item.Status == "Requested")
-                    {
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                        Write("|");
-                    }
+            @if (item.Status == "Requested")
+            {
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                Write("|");
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+            }
+            else
+            {
+                <a asp-action="Details" asp-route-id="@item.Id">Results</a>
+            }
                 
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                |
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
         </div>
 }
