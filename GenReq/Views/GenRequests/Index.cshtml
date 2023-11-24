@@ -11,7 +11,7 @@
 </p>
 <div class="row">
 @foreach (var item in Model) {
-        <div class="col-sm-6">
+        <div class="col-sm-6 border-style: solid; border-width: 2px;">
                 @Html.DisplayNameFor(model => model.CreatedDate):
                 @Html.DisplayFor(modelItem => item.CreatedDate)<br/>
                 @Html.DisplayNameFor(model => model.Title):
