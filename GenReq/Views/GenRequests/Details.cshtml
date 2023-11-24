@@ -41,8 +41,8 @@
         </dl>
         </dl>
 <div class="row">
-        <div class="col-sm-2">
-            @Html.DisplayNameFor(model => model.GeneratedTitle)
+        </b><div class="col-sm-2">
+        <h3>@Html.DisplayNameFor(model => model.GeneratedTitle)</h3>
         </div>
 </div>
 <div class="row">
@@ -52,17 +52,17 @@
 </div>
 <div class="row">
     <div class="col-sm-2">
-            @Html.DisplayNameFor(model => model.GeneratedContent)
+        <h3>@Html.DisplayNameFor(model => model.GeneratedContent)</h3>
     </div>
 </div>
 <div class="row">
     <div class="col-sm-10">
-            @Html.DisplayFor(model => model.GeneratedContent)
+           <b> @Html.DisplayFor(model => model.GeneratedContent)
     </div>
 </div>
 <div class="row">
     <div class="col-sm-2">
-            @Html.DisplayNameFor(model => model.GeneratedContent) (as raw code)
+        <h3>@Html.DisplayNameFor(model => model.GeneratedContent) (as raw code)</h3>
     </div>
 </div>
 <div class="row">
@@ -74,6 +74,5 @@
     </div>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
