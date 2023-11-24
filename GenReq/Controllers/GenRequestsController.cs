@@ -34,6 +34,7 @@ namespace GenReq.Controllers
             // .Where(b => b.Url.Contains("dotnet"))
             var obj = await _context.GenRequest
                 .Where(b => b.OwningUserId == UserID)
+                .OrderByDescending(x => x.CreatedDate)
                 .ToListAsync();
             return View(obj);
         }
