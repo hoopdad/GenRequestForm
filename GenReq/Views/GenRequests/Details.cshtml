@@ -6,7 +6,7 @@
 
 <h1>Content Generation Request</h1>
 
-<div>
+<dl>
     <dl class="row">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Status)
@@ -38,27 +38,40 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.GeneratedDate)
         </dd>
+        </dl>
+        </dl>
+<div class="row">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.GeneratedTitle)
         </dt>
+        </div>
+    <div class="row">
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.GeneratedTitle)
         </dd>
-        <dt class="col-sm-2">
+</div>
+<div class="row">
+    <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.GeneratedContent)
         </dt>
-        <dd class="col-sm-10">
+</div>
+<div class="row">
+    <dd class="col-sm-10">
             @Html.DisplayFor(model => model.GeneratedContent)
         </dd>
-        <dt class="col-sm-2">
+</div>
+<div class="row">
+    <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.GeneratedContent) (as raw code)
         </dt>
-        <dd class="col-sm-10">
+</div>
+<div class="row">
+    <dd class="col-sm-10">
                 <code>
                     @Html.DisplayFor(model => model.GeneratedContent)
                 </code>
         </dd>
-    </dl>
+    </div>
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |

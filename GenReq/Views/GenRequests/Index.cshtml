@@ -9,46 +9,19 @@
 <p>
     <a asp-action="Create">Create New Request</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Actor)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.GeneratedDate)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
+<div class="row">
 @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Actor)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.GeneratedDate)
-                </td>
-                <td>
+        <div class="col-sm-6">
+                @Html.DisplayNameFor(model => model.CreatedDate):
+                @Html.DisplayFor(modelItem => item.CreatedDate)<br/>
+                @Html.DisplayNameFor(model => model.Title):
+            @Html.DisplayFor(modelItem => item.Title)<br />
+                @Html.DisplayNameFor(model => model.Actor):
+            @Html.DisplayFor(modelItem => item.Actor)<br />
+                @Html.DisplayNameFor(model => model.Status):
+            @Html.DisplayFor(modelItem => item.Status)<br />
+                @Html.DisplayNameFor(model => model.GeneratedDate):
+            @Html.DisplayFor(modelItem => item.GeneratedDate)<br />
                     @if (item.Status == "Requested")
                     {
                         <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
@@ -57,11 +30,9 @@
                 
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+        </div>
 }
-    </tbody>
-</table>
+</div>
 
 <div>Graph API result</div>
 <div>@ViewData["GraphApiResult"]</div>
