@@ -15,7 +15,7 @@
       "dynamicId": null
     },
     "identityapp1": {
-      "connectionInfo": "App registration: Content Generator, Tenant: ContentGeneratorSite (ContentGeneratorSite.onmicrosoft.com - Microsoft Entra External ID)",
+      "connectionInfo": "App registration: Content Generator, Tenant: Mike Olivieri (mikeolivieris.onmicrosoft.com - Microsoft Entra ID)",
       "secretStore": "LocalSecretsFile",
       "resourceId": null,
       "type": "identityapp.secretStore",
