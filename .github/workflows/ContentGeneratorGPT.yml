@@ -1,10 +1,10 @@
-name: Build and deploy .NET Core application to Web App ContentRequestGenerator
+name: Build and deploy .NET Core application to Web App ContentGeneratorGPT
 on:
   push:
     branches:
     - master
 env:
-  AZURE_WEBAPP_NAME: ContentRequestGenerator
+  AZURE_WEBAPP_NAME: ContentGeneratorGPT
   AZURE_WEBAPP_PACKAGE_PATH: GenReq\published
   CONFIGURATION: Release
   DOTNET_CORE_VERSION: 8.0.x
@@ -44,5 +44,5 @@ jobs:
       uses: azure/webapps-deploy@v2
       with:
         app-name: ${{ env.AZURE_WEBAPP_NAME }}
-        publish-profile: ${{ secrets.ContentRequestGenerator_817A }}
+        publish-profile: ${{ secrets.ContentGeneratorGPT_47FD }}
         package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
