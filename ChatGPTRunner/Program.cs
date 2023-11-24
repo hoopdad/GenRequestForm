@@ -41,6 +41,16 @@ foreach (GenRequest req in requests)
         req.Status = "Generated";
         req.GeneratedContent = completionsResponse.Value.Choices[0].Text;
         req.GeneratedTitle = completionsResponse.Value.Choices[1].Text;
+
+        if (req.GeneratedTitle.Trim().StartsWith("\""))
+        {
+            req.GeneratedTitle = req.GeneratedTitle.Trim().Substring(1);
+        }
+        if (req.GeneratedContent.Trim().StartsWith("\""))
+        {
+            req.GeneratedContent = req.GeneratedContent.Trim().Substring(1);
+        }
+
         req.GeneratedDate = DateTime.Today;
         db.Update(req);
         await db.SaveChangesAsync();
