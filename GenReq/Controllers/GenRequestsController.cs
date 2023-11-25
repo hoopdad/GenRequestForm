@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using GenReq.Data;
 using GenReq.Models;
 using System.Net;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GenReq.Controllers
 {
@@ -28,6 +29,7 @@ namespace GenReq.Controllers
         }
 
         // GET: GenRequests
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             string UserID = GetUserID();
@@ -40,6 +42,7 @@ namespace GenReq.Controllers
         }
 
         // GET: GenRequests/Details/5
+        [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -61,6 +64,7 @@ namespace GenReq.Controllers
         }
 
         // GET: GenRequests/Create
+        [Authorize]
         public IActionResult Create()
         {
             var genRequest = new GenRequest();
@@ -75,6 +79,7 @@ namespace GenReq.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Create([Bind("Id,OwningUserId,Title,CreatedDate,GeneratedDate,Actor,Status")] GenRequest genRequest)
         {
             if (ModelState.IsValid)
@@ -90,6 +95,7 @@ namespace GenReq.Controllers
         }
 
         // GET: GenRequests/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -113,6 +119,7 @@ namespace GenReq.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Edit(int id, [Bind("Id,OwningUserId,Title,CreatedDate,GeneratedDate,Actor,Status")] GenRequest genRequest)
         {
             if (id != genRequest.Id)
@@ -144,6 +151,7 @@ namespace GenReq.Controllers
         }
 
         // GET: GenRequests/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -166,6 +174,7 @@ namespace GenReq.Controllers
         // POST: GenRequests/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             string UserID = GetUserID();

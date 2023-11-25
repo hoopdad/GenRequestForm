@@ -19,14 +19,16 @@ namespace GenReq.Controllers
             _graphServiceClient = graphServiceClient;;
         }
 
-        [AuthorizeForScopes(ScopeKeySection = "MicrosoftGraph:Scopes")]
+        [AllowAnonymous]
+//        [AuthorizeForScopes(ScopeKeySection = "MicrosoftGraph:Scopes")]
         public async Task<IActionResult> Index()
         {
-var user = await _graphServiceClient.Me.Request().GetAsync();
-ViewData["GraphApiResult"] = user.DisplayName;
+//var user = await _graphServiceClient.Me.Request().GetAsync();
+//ViewData["GraphApiResult"] = user.DisplayName;
             return View();
         }
 
+        [AllowAnonymous]
         public IActionResult Privacy()
         {
             return View();

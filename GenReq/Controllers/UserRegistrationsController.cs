@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GenReq.Data;
 using GenReq.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GenReq.Controllers
 {
@@ -26,6 +27,7 @@ namespace GenReq.Controllers
         }
 
         // GET: UserRegistrations
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             string UserID = GetUserID();
@@ -36,6 +38,7 @@ namespace GenReq.Controllers
         }
 
         // GET: UserRegistrations/Create
+        [Authorize]
         public IActionResult Create()
         {
             UserRegistration userRegistration = new UserRegistration();
@@ -49,6 +52,7 @@ namespace GenReq.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Create([Bind("Id,Name,RegistrationType,RegistrationStarted,RegistrationEnded")] UserRegistration userRegistration)
         {
             if (ModelState.IsValid)

@@ -28,15 +28,24 @@ builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
             .AddMicrosoftGraph(builder.Configuration.GetSection("MicrosoftGraph"))
             .AddInMemoryTokenCaches();
 
-builder.Services.AddControllersWithViews(options =>
+builder.Services.AddControllersWithViews()
+    /*options =>
 {
     var policy = new AuthorizationPolicyBuilder()
         .RequireAuthenticatedUser()
         .Build();
     options.Filters.Add(new AuthorizeFilter(policy));
-});
-builder.Services.AddRazorPages()
+})*/;
+builder.Services.AddRazorPages(options =>
+{
+    options.Conventions.AllowAnonymousToFolder("/");
+    options.Conventions.AllowAnonymousToFolder("/Home");
+    options.Conventions.AllowAnonymousToFolder("/Shared");
+    options.Conventions.AuthorizeFolder("/GenRequests");
+    options.Conventions.AuthorizeFolder("/UserRegistrations");
+})
     .AddMicrosoftIdentityUI();
+
 string strconnString = builder.Configuration.GetConnectionString("GenReqContext");
 if (strconnString == null)
 {

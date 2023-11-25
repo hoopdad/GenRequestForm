@@ -6,73 +6,67 @@
 
 <h1>Content Generation Request</h1>
 
-<dl>
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Status)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.CreatedDate)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CreatedDate)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Actor)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Actor)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.GeneratedDate)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.GeneratedDate)
-        </dd>
-        </dl>
-        </dl>
 <div class="row">
-        </b><div class="col-sm-2">
-        <h3>@Html.DisplayNameFor(model => model.GeneratedTitle)</h3>
-        </div>
-</div>
-<div class="row">
-        <div class="col-sm-10">
+    <div class="col">
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Status)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Status)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.CreatedDate)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.CreatedDate)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Title)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Actor)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Actor)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.GeneratedDate)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.GeneratedDate)
+            </dd>
+        </dl>
+    </div>
+    <div class="col">
+        <dt class="col-sm-2">
+            <h3>@Html.DisplayNameFor(model => model.GeneratedTitle)</h3>
+        </dt>
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.GeneratedTitle)
-        </div>
-</div>
-<div class="row">
-    <div class="col-sm-2">
-        <h3>@Html.DisplayNameFor(model => model.GeneratedContent)</h3>
+        </dd>
+        <dt class="col-sm-2">
+            <h3>@Html.DisplayNameFor(model => model.GeneratedContent)</h3>
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.GeneratedContent)
+        </dd>
+        <dt class="col-sm-2">
+            <h3>@Html.DisplayNameFor(model => model.GeneratedContent) (as raw code)</h3>
+        </dt>
+        <dd class="col-sm-10">
+            <code>
+                @Html.DisplayFor(model => model.GeneratedContent)
+            </code>
+        </dd>
     </div>
 </div>
-<div class="row">
-    <div class="col-sm-10">
-           <b> @Html.DisplayFor(model => model.GeneratedContent)
-    </div>
 </div>
-<div class="row">
-    <div class="col-sm-2">
-        <h3>@Html.DisplayNameFor(model => model.GeneratedContent) (as raw code)</h3>
-    </div>
-</div>
-<div class="row">
-    <div class="col-sm-10">
-                <code>
-                    @Html.DisplayFor(model => model.GeneratedContent)
-                </code>
-        </div>
-    </div>
-</div>
+
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+

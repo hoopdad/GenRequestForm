@@ -5,7 +5,12 @@
 <div class="container">
 <div class="text-center row">
     <h1 class="display-4">Welcome to the Future of Communication</h1>
+        @if (User.Identity == null || !User.Identity.IsAuthenticated)
+        {
+            <p>Start by signing in (link in top right). Then come back here and we'll tell you how to get started'.</p>
+        } else {
     <p><a href="UserRegistrations/"><b>Start Here</b> with our free 5 use plan</A> | <a href="GenRequests/">View your Content Generation</a></p>
+        }
 </div>
 <div class="row">
     <div class="col-sm-6">
@@ -19,8 +24,18 @@
 </div>
 <div class="col-sm-6">
     <h2>How it Works</h2>
-        <p><ol><li>Register for a plan. Currently, there is only a free, limited-use plan while we are in beta testing. <a href="UserRegistrations/">Start Here</a></li>
-            <li>Add a request for Content Generation.  <a href="GenRequests/">Do that here</a></li>
+        <p><ol><li>Register for a plan. Currently, there is only a free, limited-use plan while we are in beta testing. 
+        @if (User.Identity != null && User.Identity.IsAuthenticated)
+        {
+            <a href="UserRegistrations/">Start Here</a>
+        }
+            </li>
+            <li>Add a request for Content Generation.  
+        @if (User.Identity != null && User.Identity.IsAuthenticated)
+                        {
+                            <a href="GenRequests/">Do that here</a>
+                        }
+                        </li>
             <li>Once you have saved your request, it can take up to 10 minutes to generate the content depending how busy the system is.</li>
             <li>To view your content, from the Content Generation table, click the "Details" link.</li>
             <li>You will see a proposed title for your article along with the generated article.</li>
