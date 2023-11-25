@@ -29,7 +29,8 @@ namespace GenReq.Models
 
         [Display(Name = "Generated Content")]
         public string? GeneratedContent { get; set; }
-        [Display(Name = "Generated Title User")]
+
+        [Display(Name = "Generated Title")]
         public string? GeneratedTitle { get; set; }
     }
 }
