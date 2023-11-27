@@ -4,6 +4,20 @@
     ViewData["Title"] = "Content Generation Request";
 }
 
+@section Scripts {
+    <script>
+        function copyToClipboard() {
+            var htmlTxt = "@Html.DisplayFor(model => model.GeneratedContent)";
+            var txt = $("<div/>").html(htmlTxt).text();
+            navigator.clipboard.writeText(txt);
+        }
+    </script>
+}
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
 <h1>Content Generation Request</h1>
 
 <dl class="row">
@@ -45,18 +59,12 @@
     </dd>
     <dt class="col-sm-2">
         @Html.DisplayNameFor(model => model.GeneratedContent)
+        <button type="button" onclick="copyToClipboard();">Copy to Clipboard</button>
     </dt>
     <dd class="col-sm-10">
         @Html.Raw(@Model.GeneratedContent)
     </dd>
-    <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.GeneratedContent) (as raw code)
-    </dt>
-    <dd class="col-sm-10">
-        <code>
-            @Html.DisplayFor(model => model.GeneratedContent)
-        </code>
-    </dd>
+
 </dl>
 <div>
     <a asp-action="Index">Back to List</a>

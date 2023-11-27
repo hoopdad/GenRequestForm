@@ -9,6 +9,7 @@ using GenReq.Data;
 using GenReq.Models;
 using System.Net;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Graph;
 
 namespace GenReq.Controllers
 {
@@ -192,7 +193,9 @@ namespace GenReq.Controllers
 
         private bool GenRequestExists(int id)
         {
-            return _context.GenRequest.Any(e => e.Id == id);
+            return _context.GenRequest
+                .Where(b => b.OwningUserId == GetUserID())
+                .Any(e => e.Id == id);
         }
     }
 }

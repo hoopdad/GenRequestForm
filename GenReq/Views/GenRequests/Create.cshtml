@@ -7,38 +7,46 @@
 <h1>Request Content Generation</h1>
 <div class="row">
     <p>Complete the fields below to get your content generated. Once you have submitted your request, you will be able to get your content by returning to the main Content Requests page. Note: it may take some time to generate, depending on the volume of requests that we are handling.</p>
-    <p><b>Title</b><br />What is the title or topic of the content you wish to generate? Be as specific as you would like. The GPT will create content based on its understanding of this, in a formatted and clearly-written way.</p>
-    <p><b>Actor</b><br />From whose perspective is the content being written? It will be as if a person of your description is writing this content for you. Be as specific as you would like.</p>
 </div>
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input asp-for="OwningUserId" type="hidden" />
-            <input asp-for="CreatedDate" type="hidden" />
-            <input asp-for="GeneratedDate" type="hidden" />
-            <input asp-for="Status" type="hidden" />
-            <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <textarea asp-for="Title" class="form-control"></textarea>
-                <span asp-validation-for="Title" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Actor" class="control-label"></label>
-                <textarea asp-for="Actor" class="form-control"></textarea>
-                <span asp-validation-for="Actor" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+<form asp-action="Create">
+    <div class="row">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input asp-for="OwningUserId" type="hidden" />
+        <input asp-for="CreatedDate" type="hidden" />
+        <input asp-for="GeneratedDate" type="hidden" />
+        <input asp-for="Status" type="hidden" />
+        <div class="col-sm-4">
+            <label asp-for="Title" class="control-label"></label>
+            <textarea asp-for="Title" class="form-control"></textarea>
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+        <div class="col-sm-2">
+            <b>Help creating a Title</b><br />What is the title or topic of the content you wish to generate? Be as specific as you would like. The AI will create content based on its understanding of this, in a formatted and clearly-written way.
+        </div>
     </div>
-</div>
+    <div class="row">
+        <div class="col-sm-4">
+            <label asp-for="Actor" class="control-label"></label>
+            <textarea asp-for="Actor" class="form-control"></textarea>
+            <span asp-validation-for="Actor" class="text-danger"></span>
+        </div>
+        <div class="col-sm-2">
+            <b>Help defining the Actor</b><br />Who should the AI pretend to be? It will be as if a person of your description is writing this content for you. Be as specific as you would like.
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <input type="submit" value="Create" class="btn btn-primary" />
+        </div>
+    </div>
+</form>
 
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
