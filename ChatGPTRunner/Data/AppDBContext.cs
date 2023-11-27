@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore.Design;
 using System.Configuration;
 using System.Drawing.Printing;
 using ChatGPTRunner.Models;
+using GenReq.Models;
 
 namespace ChatGPTRunner.Data
 {
@@ -35,10 +36,13 @@ namespace ChatGPTRunner.Data
             Console.WriteLine("in IDesignTimeDbContextFactory");
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
             string SQLConnectSTR = "Data Source=trwiz-dev.database.windows.net;Initial Catalog=trywiz;Authentication=Active Directory Default;Encrypt=True;connect timeout=10000;";
-            SQLConnectSTR = "Server=tcp:trwiz-dev.database.windows.net,1433;Initial Catalog=trywiz;Persist Security Info=False;User ID=svc_webuser_dev@mikeolivieris.onmicrosoft.com;Password=Cabbo2007!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Authentication=\"Active Directory Password\";";//Configuration["ConnectionString:GenReqContext"];
             optionsBuilder.UseSqlServer(SQLConnectSTR);
+            MyContext cntxt = new MyContext();
+            cntxt.DbPath = SQLConnectSTR;
+            ApplicationDbContext dbContxt = new ApplicationDbContext(optionsBuilder.Options);
+            dbContxt.MyAppContext = cntxt;
 
-            return new ApplicationDbContext(optionsBuilder.Options);
+            return dbContxt;
         }
     }
 }

@@ -5,10 +5,20 @@ namespace ChatGPTRunner.Data
     public class MyContext
     {
         public string APIKey { get; set; }
-        public string DbPath { get; }
+        public string DbPath { get; set;  }
+        public bool DEBUGGING { get; set; }
 
         public MyContext()
         {
+            bool debugging = false;
+            if (bool.TryParse(Environment.GetEnvironmentVariable("DEBUGGING"), out debugging))
+            {
+                DEBUGGING = debugging;
+            } else
+            {
+                DEBUGGING = false;
+            }
+
             APIKey = Environment.GetEnvironmentVariable("openai:api_key");
             if (APIKey == null)
             {

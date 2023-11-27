@@ -16,6 +16,16 @@
         <input asp-for="GeneratedDate" type="hidden" />
         <input asp-for="Status" type="hidden" />
         <div class="col-sm-4">
+            <label asp-for="ContentTemplate" class="control-label"></label>
+            <select asp-for="ContentTemplate" asp-items="@Html.GetEnumSelectList<ContentTemplates>()" class="form-control"></select>
+            <span asp-validation-for="ContentTemplate" class="text-danger"></span>
+        </div>
+        <div class="col-sm-2">
+            <b>About Content Tempaltes</b><br /> To save you more time, we have dialed in the AI for certain kinds of articles. They will be more structured with the section types that one may want in such an article.
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
             <label asp-for="Title" class="control-label"></label>
             <textarea asp-for="Title" class="form-control"></textarea>
             <span asp-validation-for="Title" class="text-danger"></span>

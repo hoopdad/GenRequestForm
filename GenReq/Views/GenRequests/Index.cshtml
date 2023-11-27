@@ -11,14 +11,16 @@
 </p>
 <div class="row">
 @foreach (var item in Model) {
-        <div class="col-xs border border-dark bg-light m-2">
+        <div class="col-sm-4 border border-dark bg-light m-2">
                 @Html.DisplayNameFor(model => model.CreatedDate):
                 @Html.DisplayFor(modelItem => item.CreatedDate)<br/>
                 @Html.DisplayNameFor(model => model.Title):
             @Html.DisplayFor(modelItem => item.Title)<br />
                 @Html.DisplayNameFor(model => model.Actor):
             @Html.DisplayFor(modelItem => item.Actor)<br />
-                @Html.DisplayNameFor(model => model.Status):
+            @Html.DisplayNameFor(model => model.ContentTemplate):
+            @Html.DisplayFor(modelItem => item.ContentTemplate)<br />
+            @Html.DisplayNameFor(model => model.Status):
             @Html.DisplayFor(modelItem => item.Status)<br />
                 @Html.DisplayNameFor(model => model.GeneratedDate):
             @Html.DisplayFor(modelItem => item.GeneratedDate)<br />

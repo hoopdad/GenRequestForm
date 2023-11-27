@@ -33,6 +33,7 @@ namespace GenReq.Controllers
         [Authorize]
         public async Task<IActionResult> Index()
         {
+            Response.Headers.Append("Refresh", "60");
             string UserID = GetUserID();
             // .Where(b => b.Url.Contains("dotnet"))
             var obj = await _context.GenRequest
@@ -69,7 +70,7 @@ namespace GenReq.Controllers
         public IActionResult Create()
         {
             var genRequest = new GenRequest();
-            genRequest.CreatedDate = DateTime.Today;
+            genRequest.CreatedDate = DateTime.Now;
             genRequest.Status = "Requested";
             genRequest.OwningUserId = GetUserID();
             return View(genRequest);
@@ -85,7 +86,7 @@ namespace GenReq.Controllers
         {
             if (ModelState.IsValid)
             {
-                genRequest.CreatedDate = DateTime.Today;
+                genRequest.CreatedDate = DateTime.Now;
                 genRequest.Status = "Requested";
                 genRequest.OwningUserId = GetUserID();
                 _context.Add(genRequest);

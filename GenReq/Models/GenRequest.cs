@@ -2,6 +2,19 @@
 
 namespace GenReq.Models
 {
+    public enum ContentTemplates
+    {
+        [Display(Name = "Free Form")]
+        Freeform,
+        [Display(Name = "Technical Overview")]
+        TechnicalOverview = 1,
+        [Display(Name = "Learning a New Skill")]
+        LearnNewSkill=2,
+        [Display(Name = "How To")]
+        Howto = 3
+    }
+
+
     public class GenRequest
     {
         public int Id { get; set; }
@@ -13,11 +26,11 @@ namespace GenReq.Models
         [MaxLength(1024)] 
         public string Title { get; set; }
 
-        [DataType(DataType.Date)]
+        [DataType(DataType.DateTime)]
         [Display(Name = "Requested Date")]
         public DateTime CreatedDate { get; set; }
 
-        [DataType(DataType.Date)]
+        [DataType(DataType.DateTime)]
         [Display(Name = "Generated Date")]
         public DateTime? GeneratedDate { get; set; }
 
@@ -32,5 +45,8 @@ namespace GenReq.Models
 
         [Display(Name = "Generated Title")]
         public string? GeneratedTitle { get; set; }
+
+        [Display(Name = "Content Template")]
+        public ContentTemplates ContentTemplate { get; set; } = ContentTemplates.Freeform;
     }
 }
