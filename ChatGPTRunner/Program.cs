@@ -1,42 +1,19 @@
 ﻿using GenReq.Models;
-using Azure.AI.OpenAI;
-using Azure;
 using ChatGPTRunner.Data;
 using Microsoft.EntityFrameworkCore;
-
-
-String ChatGPTEngine = "";
-ChatGPTEngine = "gpt-4";
-ChatGPTEngine = "gpt-3.5-turbo";
-ChatGPTEngine = "gpt-3.5";
-ChatGPTEngine = "text-davinci-003";
+using ChatGPTRunner.Services;
+using ChatGPTRunner.Models;
 
 MyContext cntxt = new MyContext();
 var db = new ApplicationDbContext(cntxt);
 
-GenRequest fred = db.GenRequest.First(x => x.Id == 3);
-fred.ContentTemplate = ContentTemplates.Freeform;
-fred.ContentTemplate = ContentTemplates.TechnicalOverview;
-fred.ContentTemplate = ContentTemplates.Howto;
-fred.ContentTemplate = ContentTemplates.LearnNewSkill;
-
-
 List<GenReq.Models.GenRequest> requests = null;
-if (cntxt.DEBUGGING)
-{
     requests = await db.GenRequest
-        .Where(x => x.Id==3)
+//        .Where(b => b.Status == "Requested")
+        .Where(b => b.Id==42)
         .ToListAsync();
-} 
-else
-{
-    requests = await db.GenRequest
-        .Where(b => b.Status == "Requested")
-        .ToListAsync();
-}
 
-
-OpenAIClient client = new OpenAIClient(cntxt.APIKey);
+ChatGPT gpt = new ChatGPT(cntxt);
 
 foreach (GenRequest req in requests)
 {
@@ -76,38 +53,42 @@ foreach (GenRequest req in requests)
             "Add keywords to help search engines find this post. " +
             "Make sure to use HTML formatting as much as possible.";
 
-        CompletionsOptions completionsOptions = new()
+        CompletionRequest compreq = new CompletionRequest(new List<Message>()
         {
-            DeploymentName = ChatGPTEngine,
-            User = req.Actor,
-            MaxTokens = 3000,
-            Prompts = { Prompt, "What is a good title for this content?" }
-        };
-
-        Response<Completions> completionsResponse = client.GetCompletions(completionsOptions);
-
+            new Message() {role="user", content=Prompt},
+            new Message() {role="user", content="Suggest a title for the blog created in the prior message"}
+        });
+        List<Choice> completionsResponse = await gpt.GetContentAsync(compreq);
+        
         if (!cntxt.DEBUGGING)
         {
             req.Status = "Generated";
         }
-        req.GeneratedContent = completionsResponse.Value.Choices[0].Text;
-        if (cntxt.DEBUGGING)
+        if (completionsResponse != null && completionsResponse.Count > 0 && completionsResponse[0].message != null)
         {
-            Console.WriteLine(req.GeneratedContent);
-        }
-        req.GeneratedTitle = completionsResponse.Value.Choices[1].Text;
-        if (cntxt.DEBUGGING)
-        {
-            Console.WriteLine(req.GeneratedTitle);
+            req.GeneratedContent = completionsResponse[0].message.content;
+            if (cntxt.DEBUGGING)
+            {
+                Console.WriteLine(req.GeneratedContent);
+            }
+            if (req.GeneratedContent.Trim().StartsWith("\""))
+            {
+                req.GeneratedContent = req.GeneratedContent.Trim().Substring(1);
+            }
         }
 
-        if (req.GeneratedTitle.Trim().StartsWith("\""))
+        if (completionsResponse != null && completionsResponse.Count > 1 && completionsResponse[1].message != null)
         {
-            req.GeneratedTitle = req.GeneratedTitle.Trim().Substring(1);
-        }
-        if (req.GeneratedContent.Trim().StartsWith("\""))
-        {
-            req.GeneratedContent = req.GeneratedContent.Trim().Substring(1);
+            req.GeneratedTitle = completionsResponse[1].message.content;
+            if (cntxt.DEBUGGING)
+            {
+                Console.WriteLine(req.GeneratedTitle);
+            }
+
+            if (req.GeneratedTitle.Trim().StartsWith("\""))
+            {
+                req.GeneratedTitle = req.GeneratedTitle.Trim().Substring(1);
+            }
         }
 
         req.GeneratedDate = DateTime.Now;
@@ -123,5 +104,4 @@ foreach (GenRequest req in requests)
         await db.SaveChangesAsync();
     }
 }
-
 
