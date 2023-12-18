@@ -55,8 +55,8 @@ foreach (GenRequest req in requests)
 
         CompletionRequest compreq = new CompletionRequest(new List<Message>()
         {
-            new Message() {role="user", content=Prompt},
-            new Message() {role="user", content="Suggest a title for the blog created in the prior message"}
+            new Message() {role="system", content=new String ("You are a " + req.Actor)},
+            new Message() {role="user", content=Prompt}
         });
         List<Choice> completionsResponse = await gpt.GetContentAsync(compreq);
         
@@ -67,7 +67,7 @@ foreach (GenRequest req in requests)
         if (completionsResponse != null && completionsResponse.Count > 0 && completionsResponse[0].message != null)
         {
             req.GeneratedContent = completionsResponse[0].message.content;
-            if (cntxt.DEBUGGING)
+            //if (cntxt.DEBUGGING)
             {
                 Console.WriteLine(req.GeneratedContent);
             }
@@ -75,19 +75,21 @@ foreach (GenRequest req in requests)
             {
                 req.GeneratedContent = req.GeneratedContent.Trim().Substring(1);
             }
-        }
 
-        if (completionsResponse != null && completionsResponse.Count > 1 && completionsResponse[1].message != null)
-        {
-            req.GeneratedTitle = completionsResponse[1].message.content;
-            if (cntxt.DEBUGGING)
+            int titlestart = req.GeneratedContent.IndexOf("<title>") + "<title>".Length;
+            if (titlestart > -1)
             {
-                Console.WriteLine(req.GeneratedTitle);
+                int titleEnd = req.GeneratedContent.IndexOf("</title>");
+                string title = req.GeneratedContent.Substring(titlestart, titleEnd - titlestart);
+                req.GeneratedTitle = title;
             }
 
-            if (req.GeneratedTitle.Trim().StartsWith("\""))
+            int bodystart = req.GeneratedContent.IndexOf("<body>") + "<body>".Length;
+            if (bodystart > -1)
             {
-                req.GeneratedTitle = req.GeneratedTitle.Trim().Substring(1);
+                int bodyEnd = req.GeneratedContent.IndexOf("</body>");
+                string body = req.GeneratedContent.Substring(bodystart, bodyEnd - bodystart);
+                req.GeneratedContent = body;
             }
         }
 
