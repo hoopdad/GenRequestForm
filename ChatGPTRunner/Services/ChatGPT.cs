@@ -1,21 +1,13 @@
-﻿using Azure;
-using ChatGPTRunner.Models;
+﻿using ChatGPTRunner.Models;
 using System.Text.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http.Headers;
 using System.Text;
-using System.Threading.Tasks;
-using NuGet.Protocol;
 using ChatGPTRunner.Data;
 
 namespace ChatGPTRunner.Services
 {
     public class ChatGPT
     {
-
-
         public MyContext MyAppContext { get; set; }
         public ChatGPT(MyContext cntxt)
         {
@@ -55,7 +47,6 @@ namespace ChatGPTRunner.Services
                 string str = await resp.Content.ReadAsStringAsync();
                 Console.WriteLine("Response content: " + str);
             }
-
             return responseToCaller;
         }
     }
