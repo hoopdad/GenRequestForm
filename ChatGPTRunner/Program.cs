@@ -9,8 +9,8 @@ var db = new ApplicationDbContext(cntxt);
 
 List<GenReq.Models.GenRequest> requests = null;
     requests = await db.GenRequest
-//        .Where(b => b.Status == "Requested")
-        .Where(b => b.Id==42)
+        .Where(b => b.Status == "Requested")
+//        .Where(b => b.Id==42)
         .ToListAsync();
 
 ChatGPT gpt = new ChatGPT(cntxt);
@@ -67,7 +67,7 @@ foreach (GenRequest req in requests)
         if (completionsResponse != null && completionsResponse.Count > 0 && completionsResponse[0].message != null)
         {
             req.GeneratedContent = completionsResponse[0].message.content;
-            //if (cntxt.DEBUGGING)
+            if (cntxt.DEBUGGING)
             {
                 Console.WriteLine(req.GeneratedContent);
             }
@@ -94,6 +94,7 @@ foreach (GenRequest req in requests)
         }
 
         req.GeneratedDate = DateTime.Now;
+        req.Status = "Generated";
         db.Update(req);
         await db.SaveChangesAsync();
         Console.WriteLine("Run complete");
