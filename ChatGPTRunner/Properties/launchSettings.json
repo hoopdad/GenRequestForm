@@ -3,8 +3,8 @@
     "ChatGPTRunner": {
       "commandName": "Project",
       "environmentVariables": {
-        "ConnectionString:GenReqContext": "Data Source=trwiz-dev.database.windows.net;Initial Catalog=trywiz;Authentication=Active Directory Default;Encrypt=True;connect timeout=10000;",
-        "openai:api_key": "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",
+        "ConnectionString:GenReqContext": "",
+        "openai:api_key": "",
         "DEBUGGING": "FALSE"
       }
     }
